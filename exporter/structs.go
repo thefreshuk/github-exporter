@@ -51,6 +51,7 @@ type Pull struct {
 	User struct {
 		Login string `json:"login"`
 	} `json:"user"`
+	Draft bool `json:"draft"`
 }
 
 type Asset struct {

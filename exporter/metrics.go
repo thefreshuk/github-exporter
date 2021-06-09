@@ -1,7 +1,10 @@
 package exporter
 
-import "github.com/prometheus/client_golang/prometheus"
-import "strconv"
+import (
+	"strconv"
+
+	"github.com/prometheus/client_golang/prometheus"
+)
 
 // AddMetrics - Add's all of the metrics to a map of strings, returns the map.
 func AddMetrics() map[string]*prometheus.Desc {
@@ -78,7 +81,10 @@ func (e *Exporter) processMetrics(data []*Datum, rates *RateLimits, ch chan<- pr
 			}
 		}
 		prCount := 0
-		for range x.Pulls {
+		for _, pr := range x.Pulls {
+			if pr.Draft {
+				continue
+			}
 			prCount += 1
 		}
 		// issueCount = x.OpenIssue - prCount
